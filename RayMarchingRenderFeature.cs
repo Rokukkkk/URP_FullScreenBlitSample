@@ -33,6 +33,7 @@ public class RayMarchingRenderFeature : ScriptableRendererFeature
 
             var stack = VolumeManager.instance.stack;
             var param = stack.GetComponent<RayMarching>();
+            if (!param.IsActive()) return;
 
             CommandBuffer cmd = CommandBufferPool.Get();
             using (new ProfilingScope(cmd, m_ProfilingSampler))
