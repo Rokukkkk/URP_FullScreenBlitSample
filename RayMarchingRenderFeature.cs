@@ -28,8 +28,7 @@ public class RayMarchingRenderFeature : ScriptableRendererFeature
 
         public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)
         {
-            //var cameraData = renderingData.cameraData;
-            //if (cameraData.camera.cameraType != CameraType.Game) return;
+            if (renderingData.cameraData.cameraType != CameraType.Game) return;
             if (m_Material == null) return;
 
             var stack = VolumeManager.instance.stack;
@@ -55,12 +54,13 @@ public class RayMarchingRenderFeature : ScriptableRendererFeature
 
     public override void AddRenderPasses(ScriptableRenderer renderer, ref RenderingData renderingData)
     {
+        if (renderingData.cameraData.cameraType != CameraType.Game) return;
         renderer.EnqueuePass(m_RenderPass);
     }
 
     public override void SetupRenderPasses(ScriptableRenderer renderer, in RenderingData renderingData)
     {
-
+        if (renderingData.cameraData.cameraType != CameraType.Game) return;
         // Calling ConfigureInput with the ScriptableRenderPassInput.Color argument
         // ensures that the opaque texture is available to the Render Pass.
         m_RenderPass.ConfigureInput(ScriptableRenderPassInput.Color);
